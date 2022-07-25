@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:giphy_picker/src/model/giphy_client.dart';
@@ -14,37 +15,15 @@ class GiphyImage extends StatefulWidget {
   final bool renderGiphyOverlay;
 
   /// Loads an image from given url.
-  const GiphyImage(
-      {Key? key,
-      this.url,
-      this.placeholder,
-      this.width,
-      this.height,
-      this.fit,
-      this.renderGiphyOverlay = true})
-      : super(key: key);
+  const GiphyImage({Key? key, this.url, this.placeholder, this.width, this.height, this.fit, this.renderGiphyOverlay = true}) : super(key: key);
 
   /// Loads the original image for given Giphy gif.
-  GiphyImage.original(
-      {Key? key,
-      required GiphyGif gif,
-      this.placeholder,
-      this.width,
-      this.height,
-      this.fit,
-      this.renderGiphyOverlay = true})
+  GiphyImage.original({Key? key, required GiphyGif gif, this.placeholder, this.width, this.height, this.fit, this.renderGiphyOverlay = true})
       : url = gif.images.original?.url,
         super(key: key ?? Key(gif.id));
 
   /// Loads the original still image for given Giphy gif.
-  GiphyImage.originalStill(
-      {Key? key,
-      required GiphyGif gif,
-      this.placeholder,
-      this.width,
-      this.height,
-      this.fit,
-      this.renderGiphyOverlay = true})
+  GiphyImage.originalStill({Key? key, required GiphyGif gif, this.placeholder, this.width, this.height, this.fit, this.renderGiphyOverlay = true})
       : url = gif.images.originalStill?.url,
         super(key: key ?? Key(gif.id));
 
@@ -56,8 +35,7 @@ class GiphyImage extends StatefulWidget {
     if (url == null) {
       return null;
     }
-    final response = await (client ?? Client())
-        .get(Uri.parse(url), headers: {'accept': 'image/*'});
+    final response = await (client ?? Client()).get(Uri.parse(url), headers: {'accept': 'image/*'});
 
     if (response.statusCode == 200) {
       return response.bodyBytes;
@@ -80,14 +58,13 @@ class _GiphyImageState extends State<GiphyImage> {
       future: _loadImage,
       builder: (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
         if (snapshot.hasData) {
-          final image = Image.memory(snapshot.data!,
-              width: widget.width, height: widget.height, fit: widget.fit);
+          final image = Image.memory(snapshot.data!, width: widget.width, height: widget.height, fit: widget.fit);
 
           if (widget.renderGiphyOverlay) {
             return GiphyOverlay(child: image);
           }
           return image;
         }
-        return widget.placeholder ?? Center(child: CircularProgressIndicator());
+        return widget.placeholder ?? Center(child: CupertinoActivityIndicator());
       });
 }

@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Giphy Picker Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -32,9 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SafeArea(
         child: Center(
-          child: _gif == null
-              ? Text('Pick a gif..')
-              : GiphyImage.original(gif: _gif!),
+          child: _gif == null ? Text('Pick a gif..') : GiphyImage.original(gif: _gif!),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -44,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // request your Giphy API key at https://developers.giphy.com/
           final gif = await GiphyPicker.pickGif(
             context: context,
-            apiKey: '[YOUR GIPHY APIKEY]',
+            apiKey: '7nyjszioxPcK0DWCgV97TXSOHUWwauyM',
             fullScreenDialog: false,
             previewType: GiphyPreviewType.previewWebp,
             decorator: GiphyDecorator(

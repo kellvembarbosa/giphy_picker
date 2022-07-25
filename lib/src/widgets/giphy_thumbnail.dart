@@ -8,9 +8,7 @@ class GiphyThumbnail extends StatefulWidget {
   final int index;
   final Widget? placeholder;
 
-  const GiphyThumbnail(
-      {Key? key, required this.repo, required this.index, this.placeholder})
-      : super(key: key);
+  const GiphyThumbnail({Key? key, required this.repo, required this.index, this.placeholder}) : super(key: key);
 
   @override
   _GiphyThumbnailState createState() => _GiphyThumbnailState();
@@ -36,8 +34,11 @@ class _GiphyThumbnailState extends State<GiphyThumbnail> {
       future: _loadPreview,
       builder: (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
         if (!snapshot.hasData) {
-          return widget.placeholder ?? Container(color: Colors.grey.shade200);
+          return widget.placeholder ?? Container(height: 200, color: Colors.grey.shade200);
         }
-        return Image.memory(snapshot.data!, fit: BoxFit.cover);
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.memory(snapshot.data!, fit: BoxFit.cover),
+        );
       });
 }

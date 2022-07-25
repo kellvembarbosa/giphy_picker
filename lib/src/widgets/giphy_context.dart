@@ -16,6 +16,10 @@ class GiphyContext extends InheritedWidget {
   final String searchText;
   final GiphyPreviewType? previewType;
 
+  final String titlePreviewPage;
+  final String beforeWatchPreviewPage;
+  final String afterWatchPreviewPage;
+
   /// Debounce delay when searching
   final Duration searchDelay;
 
@@ -31,6 +35,10 @@ class GiphyContext extends InheritedWidget {
     this.showPreviewPage = true,
     this.searchText = 'Search Giphy',
     this.searchDelay = const Duration(milliseconds: 500),
+    this.titlePreviewPage = 'Preview',
+    this.beforeWatchPreviewPage = 'Did you like it?',
+    this.afterWatchPreviewPage =
+        'GIFs with very short durations can create a bad experience. \n Ideal duration is 1~3 seconds, you can edit the duration in the next step.',
     required this.decorator,
     this.previewType,
   }) : super(key: key, child: child);
@@ -42,9 +50,7 @@ class GiphyContext extends InheritedWidget {
   bool updateShouldNotify(InheritedWidget oldWidget) => false;
 
   static GiphyContext of(BuildContext context) {
-    final settings = context
-        .getElementForInheritedWidgetOfExactType<GiphyContext>()
-        ?.widget as GiphyContext?;
+    final settings = context.getElementForInheritedWidgetOfExactType<GiphyContext>()?.widget as GiphyContext?;
 
     if (settings == null) {
       throw 'Required GiphyContext widget not found. Make sure to wrap your widget with GiphyContext.';

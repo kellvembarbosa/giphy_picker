@@ -20,7 +20,7 @@ class _GiphySearchViewState extends State<GiphySearchView> {
   @override
   void initState() {
     // initiate search on next frame (we need context)
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final giphy = GiphyContext.of(context);
       _debouncer = Debouncer(
         delay: giphy.searchDelay,
@@ -46,8 +46,7 @@ class _GiphySearchViewState extends State<GiphySearchView> {
       hintText: giphy.searchText,
     );
     if (giphyDecorator.giphyTheme != null) {
-      inputDecoration
-          .applyDefaults(giphyDecorator.giphyTheme!.inputDecorationTheme);
+      inputDecoration.applyDefaults(giphyDecorator.giphyTheme!.inputDecorationTheme);
     }
 
     return Column(children: <Widget>[
@@ -73,18 +72,14 @@ class _GiphySearchViewState extends State<GiphySearchView> {
       Expanded(
           child: StreamBuilder(
               stream: _repoController.stream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<GiphyRepository> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<GiphyRepository> snapshot) {
                 if (snapshot.hasData) {
                   return snapshot.data!.totalCount > 0
                       ? NotificationListener(
                           child: RefreshIndicator(
                               child: GiphyThumbnailGrid(
-                                  key: Key('${snapshot.data.hashCode}'),
-                                  repo: snapshot.data!,
-                                  scrollController: _scrollController),
-                              onRefresh: () =>
-                                  _search(giphy, term: _textController.text)),
+                                  key: Key('${snapshot.data.hashCode}'), repo: snapshot.data!, scrollController: _scrollController),
+                              onRefresh: () => _search(giphy, term: _textController.text)),
                           onNotification: (n) {
                             // hide keyboard when scrolling
                             if (n is UserScrollNotification) {
@@ -103,8 +98,7 @@ class _GiphySearchViewState extends State<GiphySearchView> {
     ]);
   }
 
-  void _delayedSearch(GiphyContext giphy, String term) =>
-      _debouncer.call(() => _search(giphy, term: term));
+  void _delayedSearch(GiphyContext giphy, String term) => _debouncer.call(() => _search(giphy, term: term));
 
   Future _search(GiphyContext giphy, {String term = ''}) async {
     // skip search if term does not match current search text
@@ -116,11 +110,7 @@ class _GiphySearchViewState extends State<GiphySearchView> {
       // search, or trending when term is empty
       final repo = await (term.isEmpty
           ? GiphyRepository.trending(
-              apiKey: giphy.apiKey,
-              rating: giphy.rating,
-              sticker: giphy.sticker,
-              previewType: giphy.previewType,
-              onError: giphy.onError)
+              apiKey: giphy.apiKey, rating: giphy.rating, sticker: giphy.sticker, previewType: giphy.previewType, onError: giphy.onError)
           : GiphyRepository.search(
               apiKey: giphy.apiKey,
               query: term,
