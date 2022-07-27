@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:giphy_picker/src/model/giphy_repository.dart';
 import 'package:giphy_picker/src/widgets/giphy_context.dart';
 import 'package:giphy_picker/src/widgets/giphy_preview_page.dart';
@@ -14,10 +13,13 @@ class GiphyThumbnailGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MasonryGridView.count(
-      crossAxisCount: 2,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 2 : 3,
+        childAspectRatio: 1.6,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
+      ),
       padding: EdgeInsets.all(10),
       controller: scrollController,
       itemCount: repo.totalCount,

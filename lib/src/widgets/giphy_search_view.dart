@@ -44,6 +44,11 @@ class _GiphySearchViewState extends State<GiphySearchView> {
 
     final inputDecoration = InputDecoration(
       hintText: giphy.searchText,
+      border: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.pink,
+        ),
+      ),
     );
     if (giphyDecorator.giphyTheme != null) {
       inputDecoration.applyDefaults(giphyDecorator.giphyTheme!.inputDecorationTheme);
@@ -52,7 +57,7 @@ class _GiphySearchViewState extends State<GiphySearchView> {
     return Column(children: <Widget>[
       Material(
         elevation: giphyDecorator.searchElevation,
-        color: giphyDecorator.giphyTheme?.scaffoldBackgroundColor,
+        color: Colors.black,
         child: Row(
           children: [
             if (!giphyDecorator.showAppBar) BackButton(),

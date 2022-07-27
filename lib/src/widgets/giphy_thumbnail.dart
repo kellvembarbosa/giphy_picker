@@ -31,14 +31,15 @@ class _GiphyThumbnailState extends State<GiphyThumbnail> {
 
   @override
   Widget build(BuildContext context) => FutureBuilder(
-      future: _loadPreview,
-      builder: (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
-        if (!snapshot.hasData) {
-          return widget.placeholder ?? Container(height: 200, color: Colors.grey.shade200);
-        }
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.memory(snapshot.data!, fit: BoxFit.cover),
-        );
-      });
+        future: _loadPreview,
+        builder: (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
+          if (!snapshot.hasData) {
+            return widget.placeholder ?? Container(color: Colors.grey.shade200);
+          }
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.memory(snapshot.data!, fit: BoxFit.cover),
+          );
+        },
+      );
 }
