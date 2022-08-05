@@ -31,6 +31,10 @@ class GiphyPicker {
     bool fullScreenDialog = true,
     String searchText = 'Search GIPHY',
     GiphyPreviewType? previewType,
+    String titlePreviewPage = 'Preview',
+    String beforeWatchPreviewPage = 'Did you like it?',
+    String afterWatchPreviewPage =
+        'GIFs with very short durations can create a bad experience. \n Ideal duration is 1~3 seconds, you can edit the duration in the next step.',
   }) async {
     GiphyGif? result;
     final _decorator = decorator ?? GiphyDecorator();
@@ -59,6 +63,9 @@ class GiphyPicker {
           },
           showPreviewPage: showPreviewPage,
           searchText: searchText,
+          titlePreviewPage: titlePreviewPage,
+          beforeWatchPreviewPage: beforeWatchPreviewPage,
+          afterWatchPreviewPage: afterWatchPreviewPage,
         ),
         fullscreenDialog: fullScreenDialog,
       ),
