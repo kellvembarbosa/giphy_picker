@@ -35,6 +35,7 @@ class GiphyPicker {
     String beforeWatchPreviewPage = 'Did you like it?',
     String afterWatchPreviewPage =
         'GIFs with very short durations can create a bad experience. \n Ideal duration is 1~3 seconds, you can edit the duration in the next step.',
+    String searchTextInitial = "",
   }) async {
     GiphyGif? result;
     final _decorator = decorator ?? GiphyDecorator();
@@ -66,6 +67,7 @@ class GiphyPicker {
           titlePreviewPage: titlePreviewPage,
           beforeWatchPreviewPage: beforeWatchPreviewPage,
           afterWatchPreviewPage: afterWatchPreviewPage,
+          searchTextInitial: searchTextInitial,
         ),
         fullscreenDialog: fullScreenDialog,
       ),

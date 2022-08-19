@@ -11,6 +11,7 @@ class GiphyPreviewPage extends StatelessWidget {
   final String titlePreviewPage;
   final String beforeWatchPreviewPage;
   final String afterWatchPreviewPage;
+  final Widget? moldura;
 
   const GiphyPreviewPage({
     required this.gif,
@@ -18,6 +19,7 @@ class GiphyPreviewPage extends StatelessWidget {
     required this.titlePreviewPage,
     required this.beforeWatchPreviewPage,
     required this.afterWatchPreviewPage,
+    this.moldura,
   });
 
   @override
@@ -50,32 +52,33 @@ class GiphyPreviewPage extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(36),
-                        border: Border.all(color: Colors.grey, width: 4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            blurRadius: 8,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
                       ),
                       width: 220,
                       height: 260,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(28),
-                          child: GiphyImage.original(
-                            renderGiphyOverlay: false,
-                            gif: gif,
-                            width: 220, //media.orientation == Orientation.portrait ? double.maxFinite : null,
-                            height: 260,
-                            //height: media.orientation == Orientation.landscape ? double.maxFinite : null,
-                            fit: BoxFit.cover,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 12.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(42),
+                            child: GiphyImage.original(
+                              renderGiphyOverlay: false,
+                              gif: gif,
+                              width: 220, //media.orientation == Orientation.portrait ? double.maxFinite : null,
+                              height: 260,
+                              //height: media.orientation == Orientation.landscape ? double.maxFinite : null,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
                     ),
+                    moldura ??
+                        Image.asset(
+                          'assets/images/moldura_list.png',
+                          width: 220,
+                          height: 260,
+                        ),
                     Opacity(
                       opacity: 0.8,
                       child: SizedBox(
@@ -83,8 +86,8 @@ class GiphyPreviewPage extends StatelessWidget {
                         width: 220,
                         child: Padding(
                           padding: const EdgeInsets.only(
-                            top: 24.0,
-                            right: 16,
+                            top: 42.0,
+                            right: 36,
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,

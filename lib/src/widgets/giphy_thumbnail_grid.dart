@@ -39,6 +39,7 @@ class GiphyThumbnailGrid extends StatelessWidget {
                       titlePreviewPage: giphy.titlePreviewPage,
                       afterWatchPreviewPage: giphy.afterWatchPreviewPage,
                       beforeWatchPreviewPage: giphy.beforeWatchPreviewPage,
+                      moldura: giphy.moldura,
                       gif: gif,
                       onSelected: giphy.onSelected,
                     ),

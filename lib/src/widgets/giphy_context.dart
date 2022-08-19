@@ -19,6 +19,8 @@ class GiphyContext extends InheritedWidget {
   final String titlePreviewPage;
   final String beforeWatchPreviewPage;
   final String afterWatchPreviewPage;
+  final Widget? moldura;
+  final String searchTextInitial;
 
   /// Debounce delay when searching
   final Duration searchDelay;
@@ -40,7 +42,9 @@ class GiphyContext extends InheritedWidget {
     this.afterWatchPreviewPage =
         'GIFs with very short durations can create a bad experience. \n Ideal duration is 1~3 seconds, you can edit the duration in the next step.',
     required this.decorator,
+    this.moldura,
     this.previewType,
+    this.searchTextInitial = "",
   }) : super(key: key, child: child);
 
   void select(GiphyGif gif) => onSelected?.call(gif);
