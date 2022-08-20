@@ -25,11 +25,18 @@ class _GiphySearchViewState extends State<GiphySearchView> {
     // initiate search on next frame (we need context)
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final giphy = GiphyContext.of(context);
+      //if (giphy.searchTextInitial != "meme") {
       _textController.text = giphy.searchTextInitial;
+      //}
       _debouncer = Debouncer(
         delay: giphy.searchDelay,
       );
-      _search(giphy);
+
+      if (giphy.searchTextInitial.length > 0) {
+        _search(giphy, term: giphy.searchTextInitial);
+      } else {
+        _search(giphy);
+      }
     });
     super.initState();
   }
@@ -109,11 +116,15 @@ class _GiphySearchViewState extends State<GiphySearchView> {
         ),
         Container(
           color: Colors.black,
-          height: 35,
+          height: 25,
           width: double.maxFinite,
-          child: Image.asset(
-            'assets/images/logo_giphy.jpg',
-            height: 30,
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Image.asset(
+              'assets/images/logo_giphy.jpg',
+              height: 15,
+              width: 20,
+            ),
           ),
         )
       ],
